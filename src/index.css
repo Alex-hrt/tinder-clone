@@ -114,6 +114,11 @@ nav .nav-button:disabled {
   font-size: 40px;
 }
 
+.auth-modal .tinder-logo-small {
+  max-width: 30px;
+  margin-left: 30px;
+}
+
 .auth-modal form {
   display: flex;
   flex-direction: column;
@@ -124,4 +129,27 @@ nav .nav-button:disabled {
   padding: 8px;
   margin: 8px;
   font-size: 17px;
+}
+
+.auth-modal .phone-app-store {
+  display: flex;
+}
+
+.auth-modal .phone-app-store img {
+  flex: 50%;
+}
+
+.auth-modal .apple-store-logo {
+  max-height: 50px;
+  width: auto;
+  padding: 15px;
+}
+
+.auth-modal .google-play-logo {
+  max-height: 75px;
+  width: auto;
+}
+
+.auth-modal p a {
+  color: inherit;
 }
