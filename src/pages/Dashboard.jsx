@@ -1,5 +1,6 @@
-import TinderCard from "react-tinder-card"
+import TinderCard from "react-tinder-card";
 import { useState } from "react";
+import ChatContainer from "../components/ChatContainer";
 
 const db = [
     {
@@ -39,8 +40,8 @@ const Dashboard = () => {
 
     return (
         <div className="dashboard">
-            {/* <ChatContainer /> */}
-            <div className="swiper-container">
+            <ChatContainer />
+            <div className="swipe-container">
                 <div className="card-container">
                     {characters.map((character) =>
                         <TinderCard
@@ -56,7 +57,7 @@ const Dashboard = () => {
                             </div>
                         </TinderCard>
                     )}
-                    <div classname="swipe-info">
+                    <div className="swipe-info">
                         {lastDirection ? <p>You swiped {lastDirection}</p> : <p/>}
                     </div>
 
