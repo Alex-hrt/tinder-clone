@@ -4,8 +4,8 @@ const { MongoClient } = require("mongodb")
 const { v4: uuidv4 } = require("uuid")
 const jwt = require("jsonwebtoken")
 const cors = require("cors")
-const uri = "mongodb+srv://Criticalex:123@cluster0.n1wpv.mongodb.net/Cluster0?retryWrites=true&w=majority"
 const bcrypt = require("bcrypt")
+const uri = "mongodb+srv://Criticalex:123@cluster0.n1wpv.mongodb.net/Cluster0?retryWrites=true&w=majority"
 
 const app = express()
 app.use(cors())
@@ -15,19 +15,19 @@ app.get("/", (req, res) => {
     res.json("Hello to my app")
 })
 
-app.post("/signup", (req, res) => {
+app.post("/signup", async (req, res) => {
     const client = new MongoClient(uri)
     const { email, password } = req.body
 
     const generatedUserId = uuidv4()
-    const hashedPassword = bcrypt.hash(password, 10)
+    const hashedPassword = await bcrypt.hash(password, 10)
 
     try {
-        client.connect()
+        await client.connect()
         const database = client.db("app-data")
         const users = database.collection("users")
 
-        const existingUser = users.findOne({ email })
+        const existingUser = await users.findOne({ email })
 
         if (existingUser) {
             return res.status(409).send("User already exists. Please login")
@@ -40,15 +40,15 @@ app.post("/signup", (req, res) => {
             email: sanitizedEmail,
             hashed_password: hashedPassword
         }
-        const insertedUser = users.insertOne(data)
+        const insertedUser = await users.insertOne(data)
 
         const token = jwt.sign(insertedUser, sanitizedEmail, {
-            expiresIn: 60 * 24
+            expiresIn: 60 * 24,
         })
 
-        res.status(201).json({ token, user_id: generatedUserId, emai: sanitizedEmail })
-    } catch (error) {
-        console.log(error)
+        res.status(201).json({ token, userId: generatedUserId, email: sanitizedEmail })
+    } catch (err) {
+        console.log(err)
     }
 })
 
