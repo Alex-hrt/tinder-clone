@@ -76,21 +76,6 @@ app.post("/login", async (req, res) => {
     }
 })
 
-app.get("/users", async (req, res) => {
-    const client = new MongoClient(uri)
-
-    try {
-        await client.connect()
-        const database = client.db("app-data")
-        const users = database.collection("users")
-
-        const returnedUsers = await users.find().toArray()
-        res.send(returnedUsers)
-    } finally {
-        await client.close()
-    }
-})
-
 app.get("/user", async (req, res) => {
     const client = new MongoClient(uri)
     const userId = req.query.userId
@@ -107,6 +92,22 @@ app.get("/user", async (req, res) => {
     }
 })
 
+app.get("/gendered-users", async (req, res) => {
+    const client = new MongoClient(uri)
+    const gender = req.query.gender
+
+    try {
+        await client.connect()
+        const database = client.db("app-data")
+        const users = database.collection("users")
+        const query = { gender_identity: { $eq: gender} }
+        const foundUsers = await users.find(query).toArray()
+
+        res.send(foundUsers)
+    } finally {
+        await client.close()
+    }
+})
 
 app.put("/user", async ( req, res ) => {
     const client = new MongoClient(uri)
@@ -126,6 +127,7 @@ app.put("/user", async ( req, res ) => {
                 dob_year: formData.dob_year,
                 show_gender: formData.show_gender,
                 gender_identity: formData.gender_identity,
+                gender_interest: formData.gender_interest,
                 url: formData.url,
                 about: formData.about,
                 matches: formData.matches
@@ -137,6 +139,5 @@ app.put("/user", async ( req, res ) => {
         await client.close()
     }
 })
-
 
 app.listen(PORT, () => console.log("Server is running on PORT " + PORT))
