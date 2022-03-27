@@ -9,7 +9,7 @@ const Dashboard = () => {
   const [ user, setUser ] = useState(null)
   const [ cookies, setCookie, removeCookie ] = useCookies(["user"])
   const [ genderedUsers, setGenderedUsers ] = useState(null)
-  const [lastDirection, setLastDirection] = useState()
+  const [ lastDirection, setLastDirection ] = useState()
 
   const userId = cookies.UserId
 
@@ -52,8 +52,6 @@ const Dashboard = () => {
     }
   }
 
-  console.log(user)
-
   const swiped = (direction, swipedUserId) => {
     if (direction === "right") {
       updateMatches(swipedUserId)
@@ -65,6 +63,12 @@ const Dashboard = () => {
     console.log(name + " left the screen!")
   }
 
+  const matchedUserIds = user?.matches.map(({ user_id }) => user_id).concat(userId)
+
+  const filteredGenedredUsers = genderedUsers?.filter(
+    genderedUser => !matchedUserIds.includes(genderedUser.user_id)
+  )
+
   return (
     <>
       { user &&
@@ -72,7 +76,7 @@ const Dashboard = () => {
           <ChatContainer user={user} />
           <div className="swipe-container">
               <div className="card-container">
-                  {genderedUsers?.map((genderedUser) =>
+                  {filteredGenedredUsers?.map((genderedUser) =>
                       <TinderCard
                           className="swipe"
                           key={genderedUser.first_name}
