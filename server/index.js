@@ -95,7 +95,6 @@ app.get("/user", async (req, res) => {
 app.get("/users", async (req, res) => {
     const client = new MongoClient(uri)
     const userIds = JSON.parse(req.query.userIds)
-    console.log(userIds)
 
     try {
         await client.connect()
@@ -113,7 +112,6 @@ app.get("/users", async (req, res) => {
                 }
             ]
         const foundUsers = await users.aggregate(pipeline).toArray()
-        console.log(foundUsers)
         res.send(foundUsers)
     } finally {
         await client.close()
@@ -184,6 +182,40 @@ app.put("/addmatch", async (req, res) => {
         }
         const user = await users.updateOne(query, updateDocument)
         res.send(user)
+    } finally {
+        await client.close()
+    }
+})
+
+app.get("/messages", async (req, res) => {
+    const client = new MongoClient(uri)
+    const { userId, correspondingUserId } = req.query
+
+    try {
+        await client.connect()
+        const database = client.db("app-data")
+        const messages = database.collection("messages")
+
+        const query = {
+            from_userId: userId, to_userId: correspondingUserId
+        }
+        const foundMessages = await messages.find(query).toArray()
+        res.send(foundMessages)
+    } finally {
+        await client.close()
+    }
+})
+
+app.post("/message", async (req, res) => {
+    const client = new MongoClient(uri)
+    const message = req.body.message
+
+    try {
+        await client.connect()
+        const database = client.db("app-data")
+        const messages = database.collection("messages")
+        const insertedMessage = await messages.insertOne(message)
+        res.send(insertedMessage)
     } finally {
         await client.close()
     }

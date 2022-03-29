@@ -10,7 +10,6 @@ const Home = () => {
     const authToken = false;
 
     const handleClick = () => {
-        console.log("clicked");
         setShowModal(true);
         setIsSignUp(true);
     }

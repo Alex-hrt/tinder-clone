@@ -19,7 +19,7 @@ const Dashboard = () => {
         params: { userId }
       })
       setUser(response.data)
-    } catch (err) {
+    } catch(err) {
       console.log(err)
     }
   }

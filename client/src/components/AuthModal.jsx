@@ -17,8 +17,6 @@ const AuthModal = ({ setShowModal, isSignUp }) => {
 
     let navigate = useNavigate()
 
-    console.log(email, password, confirmPassword)
-
     const handleClick = () => {
         setShowModal(false);
     }
@@ -40,8 +38,8 @@ const AuthModal = ({ setShowModal, isSignUp }) => {
             if(success && isSignUp) navigate("/onboarding")
             if(success && !isSignUp) navigate("/dashboard")
             window.location.reload()
-        } catch {
-            console.log(error);
+        } catch(err) {
+            console.log(err);
         }
     }
 

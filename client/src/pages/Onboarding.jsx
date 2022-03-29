@@ -24,7 +24,6 @@ const Onboarding = () => {
     let navigate = useNavigate()
 
     const handleSubmit = async (e) => {
-        console.log("submited");
         e.preventDefault()
         try {
             const response = await axios.put("http://localhost:8000/user", { formData })
@@ -37,18 +36,14 @@ const Onboarding = () => {
     }
     
     const handleChange = (e) => {
-        console.log("e", e);
         const value = e.target.type === "checkbox" ? e.target.checked : e.target.value;
         const name = e.target.name;
-        console.log("value" + value,"name" + name);
 
         setFormData((prevState) =>({
             ...prevState,
             [name]: value
         }))
     }
-
-    console.log(formData);
 
     return (
         <>
