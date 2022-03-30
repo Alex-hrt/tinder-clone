@@ -5,7 +5,8 @@ const { v4: uuidv4 } = require("uuid")
 const jwt = require("jsonwebtoken")
 const cors = require("cors")
 const bcrypt = require("bcrypt")
-const uri = "mongodb+srv://Criticalex:123@cluster0.n1wpv.mongodb.net/Cluster0?retryWrites=true&w=majority"
+require("dotenv").config()
+const uri = process.env.URI
 
 const app = express()
 app.use(cors())
@@ -73,6 +74,9 @@ app.post("/login", async (req, res) => {
         res.status(400).send("Invalid Credentials")
     } catch (err) {
         console.log(err)
+    }
+    finally {
+        await client.close()
     }
 })
 
