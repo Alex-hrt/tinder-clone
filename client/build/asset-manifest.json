@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.css": "/static/css/main.7c2bbf94.css",
+    "main.js": "/static/js/main.cb17c81e.js",
+    "static/media/background-mainpage.webp": "/static/media/background-mainpage.715aa50b534bdeacda2e.webp",
+    "static/media/tinder-logo-small.png": "/static/media/tinder-logo-small.4a13aee239f6866454c7.png",
+    "static/media/tinder-logo-color.png": "/static/media/tinder-logo-color.e57c03cf75e6bf206a59.png",
+    "static/media/tinder-logo-white.png": "/static/media/tinder-logo-white.6b424084961e0514e220.png",
+    "static/media/apple-app-store.webp": "/static/media/apple-app-store.657b87b9871a394fbe5d.webp",
+    "static/media/google-play-store.webp": "/static/media/google-play-store.23917076110a671418c0.webp",
+    "index.html": "/index.html",
+    "main.7c2bbf94.css.map": "/static/css/main.7c2bbf94.css.map",
+    "main.cb17c81e.js.map": "/static/js/main.cb17c81e.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.7c2bbf94.css",
+    "static/js/main.cb17c81e.js"
+  ]
+}
